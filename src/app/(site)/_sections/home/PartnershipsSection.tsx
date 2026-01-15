@@ -5,8 +5,11 @@ import styled from "@emotion/styled";
 import { SealCheckIcon } from "@phosphor-icons/react/dist/ssr";
 import PublicImage from "@/components/ui/PublicImage";
 import { brandAsset } from "@/utils/publicAssets";
+import { openContactConversionPopup } from "@/components/forms/ContactConversionFormPopup";
+import { motion } from "framer-motion";
+import { microHover, sectionMotion } from "@/utils/motion";
 
-const PartnershipsSectionContainer = styled.section`
+const PartnershipsSectionContainer = styled(motion.section)`
   width: 100%;
   display: flex;
   align-items: center;
@@ -106,8 +109,8 @@ const PartnershipsSectionContainer = styled.section`
       }
 
       &__button {
-        background-color: var(--color-dark);
-        color: var(--color-bg);
+        --btn-color: var(--color-dark);
+        --btn-on: var(--color-bg);
       }
   }
 
@@ -133,6 +136,18 @@ const PartnershipsSectionContainer = styled.section`
       flex-wrap: wrap;
       gap: 8px;
 
+      /* Desktop: quando 1 item está em hover, os demais “apagam” */
+      @media (hover: hover) and (pointer: fine) {
+        &:hover .companies__list-item {
+          opacity: 0.6;
+        }
+
+        &:hover .companies__list-item:hover {
+          opacity: 1;
+          scale: 1.02;
+        }
+      }
+
       &-item {
         border: 1px solid var(--color-border);
         border-radius: 4px;
@@ -141,6 +156,7 @@ const PartnershipsSectionContainer = styled.section`
         align-items: center;
         justify-content: center;
         padding: 18px;
+        transition: all 0.15s ease-out;
 
         @media (max-width: 768px) {
           padding: 12px;
@@ -149,8 +165,12 @@ const PartnershipsSectionContainer = styled.section`
 
         & > img {
           width: 100%;
-          height: auto;
+          height: 96px;
           object-fit: contain;
+
+          @media (max-width: 768px) {
+            height: 38px;
+          }
         }
       }
     }
@@ -158,7 +178,7 @@ const PartnershipsSectionContainer = styled.section`
 `
 
 export default function PartnershipsSection() {
-  return <PartnershipsSectionContainer>
+  return <PartnershipsSectionContainer {...sectionMotion}>
     <article className="texts">
       <Text as="h1" className="texts__title">
         Trabalhamos apenas com o padrão ouro do mercado mundial.
@@ -184,42 +204,48 @@ export default function PartnershipsSection() {
           Fachadas (Siding e Cimentícia)
         </li>
       </ul>
-      <Button 
-        className="texts__button"
-        type="button"
-        id="contact-us-button"
-      >
-        Entrar em contato
-      </Button>
+      <motion.div {...microHover} style={{ display: "inline-flex" }}>
+        <Button 
+          className="texts__button"
+          type="button"
+          id="contact-us-button"
+          variant="solid"
+          onClick={() => {
+            openContactConversionPopup();
+          }}
+        >
+          Entrar em contato
+        </Button>
+      </motion.div>
     </article>
     <aside className="companies">
       <ul className="companies__list">
         <li className="companies__list-item">
-          <PublicImage src={brandAsset("adfors.jpg")} alt="Adfors Logo" />
+          <PublicImage src={brandAsset("adfors.svg")} alt="Adfors Logo" />
         </li>
         <li className="companies__list-item">
-          <PublicImage src={brandAsset("brasilit.jpg")} alt="Brasilit Logo" />
+          <PublicImage src={brandAsset("brasilit.svg")} alt="Brasilit Logo" />
         </li>
         <li className="companies__list-item">
-          <PublicImage src={brandAsset("ecofiber.jpg")} alt="Ecofiber Logo" />
+          <PublicImage src={brandAsset("ecofiber.svg")} alt="Ecofiber Logo" />
         </li>
         <li className="companies__list-item">
-          <PublicImage src={brandAsset("ecophon.jpg")} alt="Ecophon Logo" />
+          <PublicImage src={brandAsset("ecophon.svg")} alt="Ecophon Logo" />
         </li>
         <li className="companies__list-item">
-          <PublicImage src={brandAsset("isover.jpg")} alt="Isover Logo" />
+          <PublicImage src={brandAsset("isover.svg")} alt="Isover Logo" />
         </li>
         <li className="companies__list-item">
-          <PublicImage src={brandAsset("placo.jpg")} alt="Placo Logo" />
+          <PublicImage src={brandAsset("placo.svg")} alt="Placo Logo" />
         </li>
         <li className="companies__list-item">
-          <PublicImage src={brandAsset("plasbil.jpg")} alt="Plasbil Logo" />
+          <PublicImage src={brandAsset("quartzolit.svg")} alt="Quartzolit Logo" />
         </li>
         <li className="companies__list-item">
-          <PublicImage src={brandAsset("sonex.jpg")} alt="Sonex Logo" />
+          <PublicImage src={brandAsset("sonex.svg")} alt="Sonex Logo" />
         </li>
         <li className="companies__list-item">
-          <PublicImage src={brandAsset("owa.jpg")} alt="Owa Logo" />
+          <PublicImage src={brandAsset("owa.svg")} alt="Owa Logo" />
         </li>
       </ul>
     </aside>

@@ -2,12 +2,14 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { sectionMotion } from "@/utils/motion";
 
 import ImageEcosystemDesktop from "../../../../../public/ecosystem/mapa-ecosystem-fast-sistemas-construtivos-desktop.jpg";
 import ImageEcosystemMobile from "../../../../../public/ecosystem/mapa-ecosystem-fast-sistemas-construtivos-mobile.jpg";
 import PublicImage from "@/components/ui/PublicImage";
 
-const EcosystemSectionContainer = styled.section`
+const EcosystemSectionContainer = styled(motion.section)`
     width: 100%;
     height: auto;
     padding: 96px 0;
@@ -20,10 +22,10 @@ const EcosystemSectionContainer = styled.section`
     }
     
         & .map {
-                position: relative;
-                width: 100%;
-                height: auto;
-                overflow: visible;
+            position: relative;
+            width: 100%;
+            height: auto;
+            overflow: visible;
         }
 
         & .map > picture {
@@ -43,32 +45,39 @@ const EcosystemSectionContainer = styled.section`
                 z-index: 2;
             cursor: pointer;
             box-sizing: border-box;
+
+            /* Buffer invisível pra manter o hover ao mover até o tooltip */
+            &::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 100%;
+                width: 100%;
+                height: 12px;
+            }
         }
 
         & .hotspot__tooltip {
-                position: absolute;
-                top: calc(100% + 10px);
-                left: 50%;
-                transform: translateX(-50%);
-                background-color: var(--color-bg);
-                border: 1px solid var(--color-border);
-                border-radius: 16px;
-                display: flex;
-                padding: 4px;
-                width: auto;
-                color: var(--color-fg);
-                font-family: var(--font-body);
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 50%;
+            z-index: 3;
+            background-color: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            display: flex;
+            padding: 4px;
+            width: auto;
+            color: var(--color-fg);
+            font-family: var(--font-body);
             opacity: 0;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) ;
             gap: 12px;
-            visibility: hidden;
             pointer-events: none;
             transform: translateX(-50%) translateY(8px);
             transition:
-                opacity var(--dur-normal) var(--ease-standard) .2s,
-                transform var(--dur-normal) var(--ease-standard) .2s,
-                visibility 0s linear calc(.2s + var(--dur-normal));
-                z-index: 3;
+            opacity var(--dur-normal) var(--ease-standard) 2s,
+            transform var(--dur-normal) var(--ease-standard) 2s;
         }
 
         & .hotspot__media {
@@ -106,15 +115,37 @@ const EcosystemSectionContainer = styled.section`
             }
 
             & .hotspot__cta {
-                width: 100%;
-                text-align: center;
-                font-size: 16px;
-                background-color: var(--color-dark);
-                padding: 8px;
-                border-radius: 12px;
-                color: var(--color-bg);
-                font-family: var(--font-body);
-                letter-spacing: -1px;
+                background-color: transparent;
+                color: var(--color-dark);
+                border: 1px solid var(--color-dark);
+                font-size: 14px;
+                transition: all 0.0850s ease-out;
+                padding: 8px 14px;
+                border-radius: 999px;
+                position: relative;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    border-radius: var(--radius-all);
+                    transition: all 0.1250s ease-out;
+                    background-color: transparent;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    width: calc(100% - 4px);
+                    height: calc(100% - 4px);
+                }
+
+                &:hover {
+                    color: var(--color-bg);
+                }
+
+                &:hover::before {
+                    z-index: -1;
+                    background-color: var(--color-dark);
+                }
             }
         }
 
@@ -122,13 +153,11 @@ const EcosystemSectionContainer = styled.section`
         @media (hover: hover) and (pointer: fine) {
                 & .hotspot:hover .hotspot__tooltip {
                         opacity: 1;
-                        visibility: visible;
                         pointer-events: auto;
-                        transform: translateX(-50%) translateY(0);
+                        transform: translateX(-50%) translateY(-50%);
                         transition:
                     opacity var(--dur-normal) var(--ease-standard) 0s,
-                    transform var(--dur-normal) var(--ease-standard) 0s,
-                                visibility 0s;
+                transform var(--dur-normal) var(--ease-standard) 0s;
                 }
         }
 
@@ -219,7 +248,7 @@ export default function EcosystemSection() {
         },
     ] as const;
 
-    return <EcosystemSectionContainer>
+    return <EcosystemSectionContainer {...sectionMotion}>
         <div className="map">
             <picture>
                     <source media="(max-width: 768px)" srcSet={ImageEcosystemMobile.src} />

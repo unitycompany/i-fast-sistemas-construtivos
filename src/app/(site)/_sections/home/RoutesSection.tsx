@@ -5,13 +5,15 @@ import styled from "@emotion/styled";
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react/dist/ssr";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { motion } from "framer-motion";
+import { sectionMotion } from "@/utils/motion";
 
 import { useRef } from "react";
 import type { Swiper as SwiperClass } from "swiper";
 
 import "swiper/css";
 
-const RoutesContainer = styled.section`
+const RoutesContainer = styled(motion.section)`
   width: 100%;
   padding: 48px 0 48px 0;
   position: relative;
@@ -152,35 +154,9 @@ const RoutesContainer = styled.section`
         }
 
         & .card__button {
-          background-color: transparent;
-          color: var(--color-dark);
-          border: 1px solid var(--color-dark);
+          --btn-color: var(--color-dark);
+          --btn-on: var(--color-bg);
           font-size: 16px;
-          transition: all 0.0850s ease-out;
-          position: relative;
-
-          &::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: var(--radius-all);
-            transition: all 0.1250s ease-out;
-            background-color: transparent;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: calc(100% - 4px);
-            height: calc(100% - 4px);
-          }
-
-          &:hover {
-            color: var(--color-bg);
-          }
-
-          &:hover::before {
-            z-index: -1;
-            background-color: var(--color-dark);
-          }
 
           @media (max-width: 768px) {
             font-size: 14px;
@@ -219,7 +195,7 @@ export default function RoutesSection() {
     },
   ]
 
-  return <RoutesContainer>
+  return <RoutesContainer {...sectionMotion}>
     <div className="bg"></div>
     <Swiper
       modules={[Autoplay]}
@@ -255,7 +231,7 @@ export default function RoutesSection() {
               <Text as="h6" className="card__text">
                 {card.text}
               </Text>
-              <Button type="button" id={`button_${card.alt.replace(/\s+/g, '-').toLowerCase()}`} className="card__button" onClick={() => window.location.href = card.link}>
+              <Button type="button" id={`button_${card.alt.replace(/\s+/g, '-').toLowerCase()}`} className="card__button" variant="outline" onClick={() => window.location.href = card.link}>
                 {card.textButton}
               </Button>
             </aside>

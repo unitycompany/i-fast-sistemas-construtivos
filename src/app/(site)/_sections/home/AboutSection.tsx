@@ -4,11 +4,13 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { motion } from "framer-motion";
+import { sectionMotion } from "@/utils/motion";
 
 import ImageAbout from "../../../../../public/others/about.jpeg";
 import { Autoplay } from "swiper/modules";
 
-const AboutSectionContainer = styled.section`
+const AboutSectionContainer = styled(motion.section)`
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -117,7 +119,7 @@ const Carousel = styled.div`
 `
 
 export default function AboutSection() {
-  return <AboutSectionContainer id="about">
+    return <AboutSectionContainer id="about" {...sectionMotion}>
     <article className="texts">
         <Text as="h1" className="texts__title">
             Com mais de 25 anos em experiência no mercado de construção a seco

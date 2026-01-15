@@ -5,8 +5,10 @@ import { Autoplay, FreeMode } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import PublicImage from "@/components/ui/PublicImage";
+import { motion } from "framer-motion";
+import { sectionMotion } from "@/utils/motion";
 
-const ClientsContainer = styled.section`
+const ClientsContainer = styled(motion.section)`
   width: 100%;
   padding: 48px 0;
   display: flex;
@@ -79,7 +81,7 @@ const Carousel = styled.div`
 `
 
 export default function ClientsSection() {
-  return <ClientsContainer>
+  return <ClientsContainer {...sectionMotion}>
     <article className="texts">
       <Text as="h1" className="texts__title">
         Conheça alguns clientes com quem já trabalhamos
@@ -104,25 +106,25 @@ export default function ClientsSection() {
         }}
       >
         <SwiperSlide>
-          <PublicImage src="/clients/maracana.jpg" alt="Maracana" loading="lazy" className="carousel_image"/>
+          <PublicImage src="/brands/maracana.jpg" alt="Maracana" loading="lazy" className="carousel_image"/>
         </SwiperSlide>
         <SwiperSlide>
-          <PublicImage src="/clients/mc.jpg" alt="Maracana" loading="lazy" className="carousel_image"/>
+          <PublicImage src="/brands/mcdonald.svg" alt="Maracana" loading="lazy" className="carousel_image"/>
         </SwiperSlide>
         <SwiperSlide>
-          <PublicImage src="/clients/olimpiadas.jpg" alt="Olimpiadas 2016" loading="lazy" className="carousel_image"/>
+          <PublicImage src="/brands/olimpiadas.svg" alt="Olimpiadas 2016" loading="lazy" className="carousel_image"/>
         </SwiperSlide>
         <SwiperSlide>
-          <PublicImage src="/clients/localiza.jpg" alt="Olimpiadas 2016" loading="lazy" className="carousel_image"/>
+          <PublicImage src="/brands/localiza.svg" alt="Olimpiadas 2016" loading="lazy" className="carousel_image"/>
         </SwiperSlide>
         <SwiperSlide>
-          <PublicImage src="/clients/smartfit.jpg" alt="Olimpiadas 2016" loading="lazy" className="carousel_image"/>
+          <PublicImage src="/brands/smartfit.svg" alt="Olimpiadas 2016" loading="lazy" className="carousel_image"/>
         </SwiperSlide>
         <SwiperSlide>
-          <PublicImage src="/clients/sesc.jpg" alt="Olimpiadas 2016" loading="lazy" className="carousel_image"/>
+          <PublicImage src="/brands/sesc.svg" alt="Olimpiadas 2016" loading="lazy" className="carousel_image"/>
         </SwiperSlide>
         <SwiperSlide>
-          <PublicImage src="/clients/torra.jpg" alt="Olimpiadas 2016" loading="lazy" className="carousel_image"/>
+          <PublicImage src="/brands/torra.jpg" alt="Olimpiadas 2016" loading="lazy" className="carousel_image"/>
         </SwiperSlide>
       </Swiper>
     </Carousel>

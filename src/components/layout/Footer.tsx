@@ -192,7 +192,8 @@ const Franchising = styled.div`
             }
 
             & .franchising__button {
-                background-color: var(--color-surface);
+                --btn-color: var(--color-surface);
+                --btn-on: var(--color-dark);
                 font-weight: 500;
                 margin-top: 8px;
             }
@@ -264,9 +265,8 @@ const Newsletter = styled.div`
         }
 
         & .newsletter__button {
-            border: 1px solid var(--color-gray-surface);
-            background-color: var(--color-dark);
-            color: var(--color-gray-surface);
+            --btn-color: var(--color-dark);
+            --btn-on: var(--color-gray-surface);
         }
     }
 `
@@ -495,7 +495,7 @@ export default function Footer() {
                     <Text as="p" className="franchising__description">
                         Com equipe altamente qualificada e mais de 25 anos de experiência, a Fast desenvolveu uma metodologia de trabalho de sucesso.
                     </Text>
-                    <Button className="franchising__button">
+                    <Button className="franchising__button" variant="solid">
                         Ser franqueado
                     </Button>
                 </div>
@@ -521,6 +521,7 @@ export default function Footer() {
                     className="newsletter__button"
                     type="submit"
                     id="newsletter-submit"
+                    variant="solid"
                 >
                     Enviar
                 </Button>

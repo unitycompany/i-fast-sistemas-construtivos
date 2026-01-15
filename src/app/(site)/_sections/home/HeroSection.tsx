@@ -8,8 +8,10 @@ import "swiper/css";
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react/dist/ssr";
 import { useRef } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { sectionMotion } from "@/utils/motion";
 
-const HeroContainer = styled.section`
+const HeroContainer = styled(motion.section)`
   width: 100%;
   position: relative;
 
@@ -115,7 +117,7 @@ export default function HeroSection() {
     }
   ]
 
-  return <HeroContainer>
+  return <HeroContainer {...sectionMotion}>
     <Swiper
       slidesPerView={1}
       spaceBetween={8}

@@ -49,18 +49,22 @@ interface InputProps {
     placeholder?: string;
     id?: string;
     icon?: React.ComponentProps<typeof Icon>["svg"];
+    className?: string;
 }
 
 export default function Input({
     type,
     required = true,
     placeholder = 'Digite aqui...',
+    className,
     id,
     icon: IconComponent
 }: InputProps) {
     return (
         <>
-            <Label>
+            <Label 
+                className={className}
+            >
                 <input 
                     type={type} 
                     required={required} 

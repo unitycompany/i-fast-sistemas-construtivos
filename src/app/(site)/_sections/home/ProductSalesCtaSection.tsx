@@ -3,8 +3,11 @@ import Button from "@/components/ui/Button";
 import PublicImage from "@/components/ui/PublicImage";
 import Text from "@/components/ui/Text";
 import styled from "@emotion/styled";
+import { openContactConversionPopup } from "@/components/forms/ContactConversionFormPopup";
+import { motion } from "framer-motion";
+import { microHover, sectionMotion } from "@/utils/motion";
 
-const ProductSalesContainer = styled.section`
+const ProductSalesContainer = styled(motion.section)`
   padding: 4px;
   width: 100%;
   position: relative;
@@ -97,23 +100,24 @@ const ProductSalesContainer = styled.section`
       @media (max-width: 768px) {
         flex-direction: column;
       }
+    }
 
-      &-button-fill {
-        background-color: var(--color-bg);
-        color: var(--color-dark);
-      }
+    &__button-contact.ui-button--solid,
+    &__button-contact.ui-button--outline {
+      --btn-color: var(--color-bg);
+      --btn-on: var(--color-dark);
+    }
 
-      &-button-no-fill {
-        background-color: transparent;
-        color: var(--color-bg);
-        border: 1px solid var(--color-bg);
-      }
+    &__button-shop.ui-button--solid,
+    &__button-shop.ui-button--outline {
+      --btn-color: var(--color-bg);
+      --btn-on: var(--color-dark);
     }
   }
 `
 
 export default function ProductSalesCtaSection() {
-  return <ProductSalesContainer>
+  return <ProductSalesContainer {...sectionMotion}>
     <aside className="content">
       <Text as="h1" className="content__title">
         Quer comprar produtos de qualidade e com preços baixos?
@@ -122,12 +126,29 @@ export default function ProductSalesCtaSection() {
         Aproveite nossas ofertas exclusivas e garanta já os melhores produtos do mercado!
       </Text>
       <div className="content__container">
-        <Button type="button" id="button_contact-us" className="content__container-button-fill">
-          Entrar em contato
-        </Button>
-        <Button type="button" id="button_shop" className="content__container-button-no-fill">
-          Loja online
-        </Button>
+        <motion.div {...microHover} style={{ display: "inline-flex" }}>
+          <Button
+            type="button"
+            id="button_contact-us"
+            className="content__button-contact"
+            variant="solid"
+            onClick={() => {
+              openContactConversionPopup();
+            }}
+          >
+            Entrar em contato
+          </Button>
+        </motion.div>
+        <motion.div {...microHover} style={{ display: "inline-flex" }}>
+          <Button
+            type="button"
+            id="button_shop"
+            className="content__button-shop"
+            variant="outline"
+          >
+            Loja online
+          </Button>
+        </motion.div>
       </div>
     </aside>
   </ProductSalesContainer>

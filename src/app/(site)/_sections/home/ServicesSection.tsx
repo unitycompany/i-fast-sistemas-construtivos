@@ -5,8 +5,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import CardService from "../../_components/CardServices";
 import "swiper/css";
 import { ArrowArcRightIcon, ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react/dist/ssr";
+import { motion } from "framer-motion";
+import { sectionMotion } from "@/utils/motion";
 
-const ServicesSectionContainer = styled.section`
+const ServicesSectionContainer = styled(motion.section)`
   padding: 48px 0;
   width: 100%;
   position: relative;
@@ -99,7 +101,7 @@ export default function ServicesSection() {
 
   ]
 
-  return <ServicesSectionContainer>
+  return <ServicesSectionContainer {...sectionMotion}>
     <div className="bg"></div>
     <Carousel>
       <Swiper
