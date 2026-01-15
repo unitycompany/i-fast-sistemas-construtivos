@@ -15,7 +15,6 @@ export default function SmoothScroll() {
       lerp: 0.08,
       easing: (t: number) => 1 - Math.pow(1 - t, 3),
       smoothWheel: true,
-      smoothTouch: false,
       wheelMultiplier: 1,
       touchMultiplier: 1,
     });
