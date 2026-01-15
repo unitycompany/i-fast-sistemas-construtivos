@@ -1,0 +1,55 @@
+:root {
+  --color-brand: #D01218;
+  --color-brand-contrast: #7D1813;
+
+  --color-bg: #FFFFFF;
+  --color-surface: #fff;
+  --color-dark: #050505;
+  --color-fg: #353535;
+  --color-muted: #666;
+  --color-muted-white: #c2c2c2;
+  --color-border: #e5e5e5;
+
+  --color-gray-surface: #F0F0F0;
+
+  --color-success: #0f7b3c;
+  --color-warning: #b45309;
+  --color-danger: #b91c1c;
+  --color-link: #2563eb;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-all: 999px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  /* Layout */
+  --container-max: 1420px;
+  --container-pad: 24px;
+
+    /* Fonts
+      IMPORTANT: do NOT set --font-dm-sans / --font-urbanist / --font-manrope here.
+      These variables are injected by next/font in src/app/layout.tsx via className.
+    */
+
+  /* Aliases you can use across the project */
+  --font-body: var(--font-dm-sans);
+  --font-display: var(--font-urbanist);
+  --font-alt: var(--font-manrope);
+
+  --font-sans: var(--font-body), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 120ms;
+  --dur-normal: 200ms;
+  --dur-slow: 320ms;
+
+  color-scheme: light;
+}
