@@ -9,7 +9,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react/dist/ssr";
 import { useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { sectionMotion } from "@/utils/motion";
+import { useSectionMotion } from "@/utils/motion";
 
 const HeroContainer = styled(motion.section)`
   width: 100%;
@@ -96,6 +96,7 @@ const HeroContainer = styled(motion.section)`
 `
 
 export default function HeroSection() {
+  const sectionMotion = useSectionMotion();
 
   const swiperRef = useRef<SwiperClass | null>(null);
 

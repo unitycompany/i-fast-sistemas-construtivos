@@ -6,7 +6,7 @@ import CardService from "../../_components/CardServices";
 import "swiper/css";
 import { ArrowArcRightIcon, ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react/dist/ssr";
 import { motion } from "framer-motion";
-import { sectionMotion } from "@/utils/motion";
+import { useSectionMotion } from "@/utils/motion";
 
 const ServicesSectionContainer = styled(motion.section)`
   padding: 48px 0;
@@ -78,6 +78,7 @@ const Carousel = styled.div`
 `
 
 export default function ServicesSection() {
+  const sectionMotion = useSectionMotion();
 
   const services = [
     {

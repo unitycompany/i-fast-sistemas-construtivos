@@ -6,7 +6,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react/dist/ssr";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";
-import { sectionMotion } from "@/utils/motion";
+import { useSectionMotion } from "@/utils/motion";
 
 import { useRef } from "react";
 import type { Swiper as SwiperClass } from "swiper";
@@ -168,6 +168,7 @@ const RoutesContainer = styled(motion.section)`
 `
 
 export default function RoutesSection() {
+  const sectionMotion = useSectionMotion();
 
   const swiperRef = useRef<SwiperClass | null>(null);
 

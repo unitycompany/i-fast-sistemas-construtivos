@@ -7,7 +7,7 @@ import PublicImage from "@/components/ui/PublicImage";
 import { brandAsset } from "@/utils/publicAssets";
 import { openContactConversionPopup } from "@/components/forms/ContactConversionFormPopup";
 import { motion } from "framer-motion";
-import { microHover, sectionMotion } from "@/utils/motion";
+import { useMicroHover, useSectionMotion } from "@/utils/motion";
 
 const PartnershipsSectionContainer = styled(motion.section)`
   width: 100%;
@@ -178,6 +178,9 @@ const PartnershipsSectionContainer = styled(motion.section)`
 `
 
 export default function PartnershipsSection() {
+  const sectionMotion = useSectionMotion();
+  const microHover = useMicroHover();
+
   return <PartnershipsSectionContainer {...sectionMotion}>
     <article className="texts">
       <Text as="h1" className="texts__title">

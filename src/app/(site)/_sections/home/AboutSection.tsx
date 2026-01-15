@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { motion } from "framer-motion";
-import { sectionMotion } from "@/utils/motion";
+import { useSectionMotion } from "@/utils/motion";
 
 import ImageAbout from "../../../../../public/others/about.jpeg";
 import { Autoplay } from "swiper/modules";
@@ -119,6 +119,8 @@ const Carousel = styled.div`
 `
 
 export default function AboutSection() {
+    const sectionMotion = useSectionMotion();
+
     return <AboutSectionContainer id="about" {...sectionMotion}>
     <article className="texts">
         <Text as="h1" className="texts__title">

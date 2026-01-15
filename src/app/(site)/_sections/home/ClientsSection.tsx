@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import PublicImage from "@/components/ui/PublicImage";
 import { motion } from "framer-motion";
-import { sectionMotion } from "@/utils/motion";
+import { useSectionMotion } from "@/utils/motion";
 
 const ClientsContainer = styled(motion.section)`
   width: 100%;
@@ -81,6 +81,8 @@ const Carousel = styled.div`
 `
 
 export default function ClientsSection() {
+  const sectionMotion = useSectionMotion();
+
   return <ClientsContainer {...sectionMotion}>
     <article className="texts">
       <Text as="h1" className="texts__title">

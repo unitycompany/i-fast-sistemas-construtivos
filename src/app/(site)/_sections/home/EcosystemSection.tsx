@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { sectionMotion } from "@/utils/motion";
+import { useSectionMotion } from "@/utils/motion";
 
 import ImageEcosystemDesktop from "../../../../../public/ecosystem/mapa-ecosystem-fast-sistemas-construtivos-desktop.jpg";
 import ImageEcosystemMobile from "../../../../../public/ecosystem/mapa-ecosystem-fast-sistemas-construtivos-mobile.jpg";
@@ -173,6 +173,7 @@ const EcosystemSectionContainer = styled(motion.section)`
 `
 
 export default function EcosystemSection() {
+    const sectionMotion = useSectionMotion();
     const hotspots = [
         {
             id: "nova-metalica",

@@ -5,7 +5,7 @@ import Text from "@/components/ui/Text";
 import styled from "@emotion/styled";
 import { openContactConversionPopup } from "@/components/forms/ContactConversionFormPopup";
 import { motion } from "framer-motion";
-import { microHover, sectionMotion } from "@/utils/motion";
+import { useMicroHover, useSectionMotion } from "@/utils/motion";
 
 const ProductSalesContainer = styled(motion.section)`
   padding: 4px;
@@ -117,6 +117,9 @@ const ProductSalesContainer = styled(motion.section)`
 `
 
 export default function ProductSalesCtaSection() {
+  const sectionMotion = useSectionMotion();
+  const microHover = useMicroHover();
+
   return <ProductSalesContainer {...sectionMotion}>
     <aside className="content">
       <Text as="h1" className="content__title">
