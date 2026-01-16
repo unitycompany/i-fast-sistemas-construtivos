@@ -36,7 +36,7 @@ const Modal = styled.div`
 	background: var(--color-bg);
 	border: 6px solid #f5f5f5;
 	border-radius: 24px;
-	box-shadow: 0 0 12px rgba(0, 0, 0, 0.16);
+    
 
 	padding: 24px 24px;
 

@@ -31,6 +31,8 @@ const title = "Fast Sistemas Construtivos | Inovação construtiva, confiança g
 const description =
   "Mais de 25 Anos de Experiencia em Construção Especialistas em Drywall, Acústica e Steel Frame. Fast Sistemas Construtivos é a maior rede de lojas do Brasil.";
 const logoPath = "/fastsistemasconstrutivos.svg";
+const ogImagePath = "/opengraph-image";
+const twitterImagePath = "/twitter-image";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -57,7 +59,7 @@ export const metadata: Metadata = {
     description: description,
     images: [
       {
-        url: logoPath,
+        url: ogImagePath,
         alt: siteName,
       },
     ],
@@ -66,7 +68,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: title,
     description: description,
-    images: [logoPath],
+    images: [twitterImagePath],
   },
   robots: {
     index: true,

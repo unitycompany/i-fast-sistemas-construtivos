@@ -55,7 +55,7 @@ export function useMicroHover() {
   if (prefersReducedMotion || isCoarse) return {};
 
   return {
-    whileHover: { y: -3 },
+    whileHover: { y: 0 },
     whileTap: { scale: 0.98 },
     transition: { duration: 0.25, ease: cubicEase },
   };

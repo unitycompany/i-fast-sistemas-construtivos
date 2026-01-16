@@ -28,7 +28,7 @@ const ButtonContainer = styled.button`
         border: 1px solid var(--btn-border);
         background-color: transparent;
         color: var(--btn-fg);
-        transition: color 0.12s ease-out, border-color 0.12s ease-out, transform 0.12s ease-out;
+        transition: color 0.12s ease-out, border-color 0.12s ease-out;
 
         --btn-color: var(--color-dark);
         --btn-on: var(--color-bg);
@@ -47,16 +47,10 @@ const ButtonContainer = styled.button`
         &:hover {
             color: var(--btn-fg-hover);
             border-color: var(--btn-border-hover);
-            transform: translateY(-1px);
         }
 
         &:hover::before {
             opacity: var(--btn-fill-hover);
-        }
-
-        &:focus-visible {
-            outline: 3px solid color-mix(in oklab, var(--btn-color), transparent 65%);
-            outline-offset: 2px;
         }
     }
 
