@@ -43,11 +43,10 @@ const Label = styled.label`
     }
 `
 
-interface InputProps {
+type NativeInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">;
+
+interface InputProps extends NativeInputProps {
     type: string;
-    required?: boolean;
-    placeholder?: string;
-    id?: string;
     icon?: React.ComponentProps<typeof Icon>["svg"];
     className?: string;
 }
@@ -58,7 +57,8 @@ export default function Input({
     placeholder = 'Digite aqui...',
     className,
     id,
-    icon: IconComponent
+    icon: IconComponent,
+    ...inputProps
 }: InputProps) {
     return (
         <>
@@ -70,6 +70,7 @@ export default function Input({
                     required={required} 
                     placeholder={placeholder} 
                     id={id}  
+                    {...inputProps}
                 />
                 {
                     IconComponent ? <Icon svg={IconComponent} aria-hidden="true" focusable="false" /> : null

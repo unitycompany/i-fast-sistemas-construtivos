@@ -7,6 +7,13 @@ const siteUrl = "https://fastsistemasconstrutivos.com.br";
 const routes: Array<{ path: string; priority?: number; changeFrequency?: MetadataRoute.Sitemap[number]["changeFrequency"] }> = [
   { path: "/", priority: 1, changeFrequency: "weekly" },
 
+  { path: "/politicas", priority: 0.3, changeFrequency: "yearly" },
+  { path: "/politicas/privacidade", priority: 0.3, changeFrequency: "yearly" },
+  { path: "/politicas/cookies", priority: 0.3, changeFrequency: "yearly" },
+  { path: "/politicas/termos", priority: 0.3, changeFrequency: "yearly" },
+  { path: "/politicas/seguranca", priority: 0.3, changeFrequency: "yearly" },
+  { path: "/politicas/lgpd", priority: 0.3, changeFrequency: "yearly" },
+
   { path: "/steel-frame", priority: 0.9, changeFrequency: "monthly" },
   { path: "/steel-frame/residencial", priority: 0.8, changeFrequency: "monthly" },
   { path: "/steel-frame/comercial", priority: 0.8, changeFrequency: "monthly" },

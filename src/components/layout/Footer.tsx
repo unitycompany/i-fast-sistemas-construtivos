@@ -1,12 +1,16 @@
 "use client";
 
 import styled from "@emotion/styled";
+import { useEffect, useMemo, useState } from "react";
 import Text from "../ui/Text";
 import Input from "../forms/Input";
 import { ArticleIcon, BracketsSquareIcon, BrowserIcon, BuildingOfficeIcon, CheckerboardIcon, EarSlashIcon, EnvelopeIcon, EnvelopeOpenIcon, FacebookLogoIcon, GlobeHemisphereEastIcon, HouseLineIcon, InstagramLogoIcon, LinkedinLogoIcon, MapTrifoldIcon, OptionIcon, PaintRollerIcon, PhoneIcon, SpeakerSimpleHighIcon, StarFourIcon, TrophyIcon, WarehouseIcon, WhatsappLogoIcon, YoutubeLogoIcon } from "@phosphor-icons/react/dist/ssr";
 import Button from "../ui/Button";
 import Image from "next/image";
 import Icon from "../icons/Icon";
+import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
+import { CheckIcon, XCircleIcon } from "@phosphor-icons/react/dist/ssr";
 
 import Logo from "../../../public/logo-fast-sistemas-construtivos.svg";
 import Franshising from "../../../public/franchising/fachada-de-uma-franquia-da-fast-sistemas-construtivos.png";
@@ -446,6 +450,7 @@ const Policies = styled.div`
 
     @media (max-width: 768px) {
         flex-direction: column;
+        justify-content: flex-start;
         gap: 16px;
     }
 
@@ -472,7 +477,197 @@ const Policies = styled.div`
     }
 `
 
+const NewsletterBackdrop = styled.div`
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 2000;
+`
+
+const NewsletterModal = styled.div`
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(560px, calc(100vw - 32px));
+    background: var(--color-bg);
+    border: 6px solid #f5f5f5;
+    border-radius: 24px;
+    box-shadow: var(--shadow-md);
+    z-index: 2001;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+
+    & .modal__step {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    & .modal__step--center {
+        align-items: center;
+        text-align: center;
+    }
+
+    & .modal__title {
+        font-size: 24px;
+        font-weight: 400;
+        letter-spacing: -0.5px;
+        line-height: 1.15;
+        color: var(--color-dark);
+
+        @media (max-width: 768px) {
+            font-size: 22px;
+        }
+    }
+
+    & .modal__text {
+        font-size: 14px;
+        line-height: 1.35;
+        color: var(--color-muted);
+        font-family: var(--font-alt);
+
+        @media (max-width: 768px) {
+            font-size: 14px;
+        }
+
+        & a {
+            color: var(--color-dark);
+            font-weight: 500;
+            text-decoration: underline;
+
+            &:hover {
+                color: var(--color-link);
+            }
+        }
+    }
+
+    & .modal__actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        margin-top: 12px;
+
+        & > button {
+            @media (max-width: 768px) {
+                font-size: 16px;
+            }
+        }
+    }
+`
+
+const NewsletterConfirmButton = styled(Button)`
+    --btn-color: var(--color-dark);
+    --btn-on: var(--color-bg);
+`
+
+const NewsletterCancelButton = styled(Button)`
+    --btn-color: var(--color-dark);
+    --btn-on: var(--color-bg);
+`
+
+const NewsletterFeedback = styled.div`
+    width: 100%;
+    min-height: 168px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+
+    & .feedback__icon {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-dark);
+
+        & svg {
+            width: 28px;
+            height: 28px;
+        }
+    }
+
+    & .feedback__spinner {
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        border: 2px solid #f5f5f5;
+        border-top-color: var(--color-dark);
+        animation: spin 0.9s linear infinite;
+    }
+
+    & .feedback__text {
+        font-size: 14px;
+        line-height: 1.25;
+        font-family: var(--font-alt);
+        color: var(--color-muted);
+    }
+
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        & .feedback__spinner {
+            animation: none;
+        }
+    }
+`
+
+type NewsletterModalState = "consent" | "loading" | "success" | "error";
+
 export default function Footer() {
+    const [newsletterEmail, setNewsletterEmail] = useState("");
+    const [isNewsletterConsentOpen, setIsNewsletterConsentOpen] = useState(false);
+    const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+    const [newsletterModalState, setNewsletterModalState] = useState<NewsletterModalState>("consent");
+    const [newsletterError, setNewsletterError] = useState<string | null>(null);
+
+    const NEWSLETTER_LOADING_MIN_MS = 2000;
+    const NEWSLETTER_SUCCESS_VISIBLE_MS = 2000;
+
+    const canSubmitNewsletter = useMemo(() => newsletterEmail.trim().length > 0, [newsletterEmail]);
+
+    useEffect(() => {
+        if (!isNewsletterConsentOpen) return;
+        const onKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape" && newsletterModalState !== "loading") setIsNewsletterConsentOpen(false);
+        };
+        window.addEventListener("keydown", onKeyDown);
+        return () => window.removeEventListener("keydown", onKeyDown);
+    }, [isNewsletterConsentOpen, newsletterModalState]);
+
+    useEffect(() => {
+        if (!isNewsletterConsentOpen) return;
+        setNewsletterModalState("consent");
+        setNewsletterError(null);
+    }, [isNewsletterConsentOpen]);
+
+    useEffect(() => {
+        if (!newsletterSubmitted) return;
+        const t = window.setTimeout(() => setNewsletterSubmitted(false), 4500);
+        return () => window.clearTimeout(t);
+    }, [newsletterSubmitted]);
+
+    const submitNewsletter = async (email: string) => {
+        // Base implementation (replace with your real endpoint later)
+        await new Promise((r) => setTimeout(r, 1100));
+        const lowered = email.trim().toLowerCase();
+        if (lowered.includes("fail") || lowered.includes("erro")) {
+            throw new Error("Não foi possível concluir agora. Tente novamente.");
+        }
+    };
+
     return <FooterContainer>
         <Franchising>
             <Image className="franchising__image" src={Franshising} alt="" width={500} height={500} />
@@ -510,12 +705,24 @@ export default function Footer() {
                     Cadastre o seu e-mail e receba novidades e promoções exclusivas.
                 </Text>
             </div>
-            <div className="newsletter__form">
-                <Input 
-                    type="email" 
-                    placeholder="Digite seu e-mail..." 
+            <form
+                className="newsletter__form"
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    if (!canSubmitNewsletter) return;
+                    setIsNewsletterConsentOpen(true);
+                }}
+            >
+                <Input
+                    type="email"
+                    placeholder="Digite seu e-mail..."
                     id="newsletter-email"
+                    name="newsletter-email"
+                    autoComplete="email"
                     icon={EnvelopeIcon}
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.currentTarget.value)}
+                    required
                 />
                 <Button
                     className="newsletter__button"
@@ -525,7 +732,7 @@ export default function Footer() {
                 >
                     Enviar
                 </Button>
-            </div>
+            </form>
         </Newsletter>
         <div className="line"></div>
         <Navegation>
@@ -735,8 +942,162 @@ export default function Footer() {
                 © 2025 Fast Sistemas Construtivos. Todos os direitos reservados.
             </Text>
             <Text as="p" className="policies__terms">
-                Acesse nossa <a href="" target="_blank">Política de Privacidade</a>, <a href="" target="_blank">Termos de Uso</a> e a nossa <a href="" target="_blank">Política de Cookies</a>.
+                Acesse nossa <Link href="/politicas/privacidade">Política de Privacidade</Link>, <Link href="/politicas/termos">Termos de Uso</Link> e a nossa <Link href="/politicas/cookies">Política de Cookies</Link>.
             </Text>
         </Policies>
+
+        {isNewsletterConsentOpen ? (
+            <>
+                <NewsletterBackdrop onClick={() => {
+                    if (newsletterModalState === "loading") return;
+                    setIsNewsletterConsentOpen(false);
+                }} />
+                <NewsletterModal
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Consentimento para newsletter"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <AnimatePresence mode="wait" initial={false}>
+                        {newsletterModalState === "consent" ? (
+                            <motion.div
+                                key="consent"
+                                className="modal__step"
+                                initial={{ opacity: 0, y: 8 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -8 }}
+                                transition={{ duration: 0.18, ease: [0.2, 0, 0, 1] }}
+                            >
+                                <Text as="h3" className="modal__title">
+                                    Confirme e receba novidades da Fast
+                                </Text>
+                                <Text as="p" className="modal__text">
+                                    Ao prosseguir, você confirma que leu e concorda com a nossa{" "}
+                                    <Link href="/politicas/privacidade">Política de Privacidade</Link>, os{" "}
+                                    <Link href="/politicas/termos">Termos de Uso</Link> e a{" "}
+                                    <Link href="/politicas/cookies">Política de Cookies</Link>.
+                                </Text>
+                                <div className="modal__actions">
+                                    <NewsletterConfirmButton
+                                        type="button"
+                                        variant="solid"
+                                        onClick={async () => {
+                                            setNewsletterError(null);
+                                            setNewsletterModalState("loading");
+                                            const startedAt = performance.now();
+                                            try {
+                                                await submitNewsletter(newsletterEmail);
+                                                const elapsed = performance.now() - startedAt;
+                                                const remaining = Math.max(0, NEWSLETTER_LOADING_MIN_MS - elapsed);
+                                                if (remaining > 0) {
+                                                    await new Promise((r) => setTimeout(r, remaining));
+                                                }
+                                                setNewsletterModalState("success");
+                                                setNewsletterSubmitted(true);
+                                                window.setTimeout(() => {
+                                                    setIsNewsletterConsentOpen(false);
+                                                    setNewsletterEmail("");
+                                                }, NEWSLETTER_SUCCESS_VISIBLE_MS);
+                                            } catch (err) {
+                                                const message = err instanceof Error ? err.message : "Não foi possível concluir agora.";
+                                                setNewsletterError(message);
+                                                setNewsletterModalState("error");
+                                            }
+                                        }}
+                                    >
+                                        Concordo e enviar
+                                    </NewsletterConfirmButton>
+                                    <NewsletterCancelButton
+                                        type="button"
+                                        variant="outline"
+                                        onClick={() => setIsNewsletterConsentOpen(false)}
+                                    >
+                                        Cancelar
+                                    </NewsletterCancelButton>
+                                </div>
+                            </motion.div>
+                        ) : null}
+
+                        {newsletterModalState === "loading" ? (
+                            <motion.div
+                                key="loading"
+                                className="modal__step modal__step--center"
+                                initial={{ opacity: 0, scale: 0.98 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.98 }}
+                                transition={{ duration: 0.18, ease: [0.2, 0, 0, 1] }}
+                            >
+                                <NewsletterFeedback>
+                                    <div className="feedback__icon" aria-hidden="true">
+                                        <span className="feedback__spinner" />
+                                    </div>
+                                    <Text as="p" className="feedback__text">
+                                        1 segundo, estamos validando<br />suas informações
+                                    </Text>
+                                </NewsletterFeedback>
+                            </motion.div>
+                        ) : null}
+
+                        {newsletterModalState === "success" ? (
+                            <motion.div
+                                key="success"
+                                className="modal__step modal__step--center"
+                                initial={{ opacity: 0, scale: 0.98 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.98 }}
+                                transition={{ duration: 0.18, ease: [0.2, 0, 0, 1] }}
+                            >
+                                <NewsletterFeedback>
+                                    <div className="feedback__icon" aria-hidden="true">
+                                        <CheckIcon weight="bold" />
+                                    </div>
+                                    <Text as="p" className="feedback__text">Perfeito, enviado com sucesso!</Text>
+                                </NewsletterFeedback>
+                            </motion.div>
+                        ) : null}
+
+                        {newsletterModalState === "error" ? (
+                            <motion.div
+                                key="error"
+                                className="modal__step"
+                                initial={{ opacity: 0, y: 8 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -8 }}
+                                transition={{ duration: 0.18, ease: [0.2, 0, 0, 1] }}
+                            >
+                                <NewsletterFeedback>
+                                    <div className="feedback__icon" aria-hidden="true">
+                                        <XCircleIcon />
+                                    </div>
+                                    <Text as="p" className="feedback__text">{newsletterError ?? "Teve um erro, tente novamente"}</Text>
+                                </NewsletterFeedback>
+                                <div className="modal__actions" style={{ marginTop: 4 }}>
+                                    <NewsletterConfirmButton
+                                        type="button"
+                                        variant="solid"
+                                        onClick={() => setNewsletterModalState("consent")}
+                                    >
+                                        Tentar novamente
+                                    </NewsletterConfirmButton>
+                                    <NewsletterCancelButton
+                                        type="button"
+                                        variant="outline"
+                                        onClick={() => setIsNewsletterConsentOpen(false)}
+                                    >
+                                        Fechar
+                                    </NewsletterCancelButton>
+                                </div>
+                            </motion.div>
+                        ) : null}
+                    </AnimatePresence>
+                </NewsletterModal>
+            </>
+        ) : null}
+
+        {newsletterSubmitted ? (
+            <Text as="p" className="policies__terms" style={{ paddingBottom: 12 }}>
+                Inscrição registrada. Você pode cancelar a qualquer momento.
+            </Text>
+        ) : null}
     </FooterContainer>
 }

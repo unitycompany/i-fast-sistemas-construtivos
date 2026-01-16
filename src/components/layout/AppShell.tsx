@@ -7,6 +7,7 @@ import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
 import ContactConversionFormPopup from "@/components/forms/ContactConversionFormPopup";
 import SmoothScroll from "@/components/layout/SmoothScroll";
+import CookieConsentPopup from "@/components/cookies/CookieConsentPopup";
 
 export default function AppShell({ children }: { children: ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -37,6 +38,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
       </div>
 
       <ContactConversionFormPopup />
+      <CookieConsentPopup debugAlwaysShow />
     </div>
   );
 }

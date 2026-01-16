@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 
 export default function SmoothScroll() {
+  const pathname = usePathname();
+
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -31,7 +34,7 @@ export default function SmoothScroll() {
       cancelAnimationFrame(rafId);
       lenis.destroy();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }
