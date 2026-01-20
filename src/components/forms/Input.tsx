@@ -41,6 +41,25 @@ const Label = styled.label`
         color: var(--color-fg);
         fill: var(--color-fg);
     }
+
+    & > button {
+        border: none;
+        background: transparent;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--color-fg);
+
+        & > svg {
+            width: 20px;
+            height: 20px;
+            color: var(--color-fg);
+            fill: var(--color-fg);
+        }
+    }
 `
 
 type NativeInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">;
@@ -49,6 +68,8 @@ interface InputProps extends NativeInputProps {
     type: string;
     icon?: React.ComponentProps<typeof Icon>["svg"];
     className?: string;
+    onIconClick?: () => void;
+    iconAriaLabel?: string;
 }
 
 export default function Input({
@@ -58,6 +79,8 @@ export default function Input({
     className,
     id,
     icon: IconComponent,
+    onIconClick,
+    iconAriaLabel = "Ativar",
     ...inputProps
 }: InputProps) {
     return (
@@ -72,9 +95,15 @@ export default function Input({
                     id={id}  
                     {...inputProps}
                 />
-                {
-                    IconComponent ? <Icon svg={IconComponent} aria-hidden="true" focusable="false" /> : null
-                }
+                {IconComponent ? (
+                    onIconClick ? (
+                        <button type="button" onClick={onIconClick} aria-label={iconAriaLabel}>
+                            <Icon svg={IconComponent} aria-hidden="true" focusable="false" />
+                        </button>
+                    ) : (
+                        <Icon svg={IconComponent} aria-hidden="true" focusable="false" />
+                    )
+                ) : null}
             </Label>
         </>
     )

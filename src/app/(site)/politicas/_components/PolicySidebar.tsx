@@ -62,7 +62,6 @@ const PolicySidebarContainer = styled.div`
                 justify-content: center;
                 padding: 2px;
                 border-radius: 50%;
-                border: 1px solid var(--color-dark);
                 background-color: var(--color-bg);
 
                 & > svg {
