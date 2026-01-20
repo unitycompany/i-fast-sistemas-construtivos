@@ -8,6 +8,20 @@ const CardSearchContainer = styled.article`
     justify-content: center;
     flex-direction: row;
     gap: 16px;
+    cursor: pointer;
+    outline: none;
+    border-radius: 12px;
+    padding: 6px;
+    border: 1px solid transparent;
+    transition: all 180ms ease;
+
+    &:hover {
+        border: 1px solid #f5f5f5;
+    }
+
+    &:focus-visible {
+        border: 1px solid #f5f5f5;
+    }
 
     @media (max-width: 768px) {
         gap: 12px;
@@ -22,7 +36,7 @@ const CardSearchContainer = styled.article`
 
         @media (max-width: 768px) {
             width: 100px;
-            height: 62px;
+            height: 82px;
         }
         
         & img {
@@ -120,12 +134,14 @@ const CardSearchContainer = styled.article`
 `
 
 interface CardSearchProps {
+    id: string;
     nome: string;
     adress: string;
     imageUrl: string;
     km: number;
     hours?: string;
     weekendHours?: string;
+    onSelect?: (id: string) => void;
 }
 
 function parseTimeRange(text?: string) {
@@ -152,16 +168,31 @@ function isOpenNow(params: { now: Date; hours?: string; weekendHours?: string })
 }
 
 export default function CardSearch({
+    id,
     nome,
     adress,
     imageUrl,
     km,
 	hours,
-	weekendHours
+	weekendHours,
+    onSelect
 }: CardSearchProps) {
 	const open = isOpenNow({ now: new Date(), hours, weekendHours });
+    const handleSelect = () => onSelect?.(id);
 
-    return <CardSearchContainer>
+    return (
+        <CardSearchContainer
+            role="button"
+            tabIndex={0}
+            onClick={handleSelect}
+            onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    handleSelect();
+                }
+            }}
+            aria-label={`Selecionar loja ${nome}`}
+        >
         <aside className="card__image">
             <div className={`card__image-dot ${open ? "is-open" : "is-closed"}`}></div>
             <img src={imageUrl} alt={nome} />
@@ -171,5 +202,6 @@ export default function CardSearch({
             <Text as="span">{km.toFixed(1)}KM de distância</Text>
             <Text as="p">{adress}</Text>
         </main>
-    </CardSearchContainer>;
+    </CardSearchContainer>
+    );
 }

@@ -2,7 +2,7 @@
 import Text from "@/components/ui/Text";
 import styled from "@emotion/styled";
 import { EnvelopeIcon, MapPinIcon, PhoneCallIcon, WhatsappLogoIcon } from "@phosphor-icons/react/dist/ssr";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const CardContainer = styled.article`
     @keyframes cardDotPulse {
@@ -23,6 +23,17 @@ const CardContainer = styled.article`
         }
     }
 
+    @keyframes cardEnter {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -31,6 +42,30 @@ const CardContainer = styled.article`
     border-radius: 18px;
     position: relative;
     border: 2px solid #f5f5f5;
+    outline: none;
+    scroll-margin-top: 120px;
+    transition: all 180ms ease;
+    opacity: 0;
+    transform: translateY(10px);
+
+    &.is-visible {
+        animation: cardEnter 420ms ease forwards;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    &.is-selected {
+        border-color: var(--color-primary, #111827);
+        border: 2px solid var(--color-dark);
+    }
+
+    &:focus-visible {
+        border: 2px solid var(--color-dark);
+    }
 
     & .card__image {
         position: relative;
@@ -89,21 +124,21 @@ const CardContainer = styled.article`
     & .card__location {
         border: 2px solid #f5f5f5;
         background-color: var(--color-bg);
-        width: 52px;
-        height: 52px;
+        width: 42px;
+        height: 42px;
         border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
         position: absolute;
-        right: 8px;
-        top: 198px;
+        right: 10px;
+        top: 202px;
         transform: translateY(-50%);
         cursor: pointer;
 
         & > svg {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
         }
     }
 
@@ -317,6 +352,8 @@ interface CardProps {
     phone?: string | number;
     hours?: string;
     weekendHours?: string;
+    isSelected?: boolean;
+    enterDelayMs?: number;
 }
 
 function formatBrazilPhone(rawDigits: string) {
@@ -348,7 +385,9 @@ export default function Card({
     phone,
     hours,
     weekendHours,
-    address
+    address,
+    isSelected,
+    enterDelayMs
 }: CardProps) {
 	const phoneDigits = String(phone ?? "").replace(/\D/g, "");
 	const formattedPhone = formatBrazilPhone(phoneDigits);
@@ -365,18 +404,54 @@ export default function Card({
 	const weekRange = useMemo(() => parseTimeRange(hours), [hours]);
 	const satRange = useMemo(() => parseTimeRange(weekendHours), [weekendHours]);
 	const [now, setNow] = useState(() => new Date());
+    const [isVisible, setIsVisible] = useState(false);
+    const cardRef = useRef<HTMLElement | null>(null);
 
 	useEffect(() => {
 		const id = window.setInterval(() => setNow(new Date()), 30_000);
 		return () => window.clearInterval(id);
 	}, []);
 
+    useEffect(() => {
+        if (isVisible) return;
+        const target = cardRef.current;
+        if (!target) return;
+        if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
+            setIsVisible(true);
+            return;
+        }
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries.some((entry) => entry.isIntersecting)) {
+                    setIsVisible(true);
+                    observer.disconnect();
+                }
+            },
+            { threshold: 0.01, rootMargin: "0px" }
+        );
+        observer.observe(target);
+        return () => observer.disconnect();
+    }, [isVisible]);
+
 	const openStatus = useMemo(
 		() => computeOpenStatus({ now, weekRange, satRange }),
 		[now, satRange, weekRange]
 	);
 
-    return <CardContainer>
+    return (
+        <CardContainer
+            id={`store-card-${id}`}
+            ref={cardRef}
+            className={[
+                isSelected ? "is-selected" : "",
+                isVisible ? "is-visible" : "",
+            ]
+                .filter(Boolean)
+                .join(" ")}
+            tabIndex={-1}
+            aria-selected={isSelected}
+            style={{ animationDelay: `${enterDelayMs ?? 0}ms` }}
+        >
         <aside className="card__image">
             <div className={`card__image-status ${openStatus.isOpen ? "is-open" : "is-closed"}`}>
                 <div className="card__image-status-dot"></div>
@@ -450,4 +525,5 @@ export default function Card({
             </article>
         </main>
     </CardContainer>
+    );
 }

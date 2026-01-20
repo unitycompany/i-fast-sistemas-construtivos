@@ -51,6 +51,7 @@ const SearchSectionContainer = styled.section`
 
         @media (max-width: 768px) {
             grid-template-columns: repeat(1, minmax(0, 1fr));
+            padding: 12px;
         }
     }
 
@@ -187,7 +188,11 @@ const STATE_NEIGHBORS: Record<string, string[]> = {
     TO: ["PA", "MA", "PI", "BA", "GO", "MT"],
 };
 
-export default function SearchSection() {
+type SearchSectionProps = {
+    onSelectStore?: (storeId: string) => void;
+};
+
+export default function SearchSection({ onSelectStore }: SearchSectionProps) {
     const [query, setQuery] = useState("");
     const [origin, setOrigin] = useState<Coords | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -349,16 +354,27 @@ export default function SearchSection() {
         beginNewSearch("Buscando a localização informada...");
         const normalized = isCep(q) ? normalizeCep(q) : q;
 
-        let lookupQuery = `${normalized}, Brasil`;
+        let lookupCandidates: string[] = [`${normalized}, Brasil`];
         if (isCep(q)) {
             const cepLocation = await viaCepToLocation(normalized);
-            if (cepLocation?.query) lookupQuery = cepLocation.query;
+            if (cepLocation?.query) {
+                lookupCandidates = [
+                    cepLocation.query,
+                    `${cepLocation.city}, ${cepLocation.state}, Brasil`,
+                    `${cepLocation.state}, Brasil`,
+                    `${normalized}, Brasil`,
+                ].filter((value, index, self) => value && self.indexOf(value) === index);
+            }
             setSearchState(cepLocation?.state ?? null);
         } else {
             setSearchState(null);
         }
 
-        const coords = await geocodeToCoords(lookupQuery);
+        let coords: Coords | null = null;
+        for (const candidate of lookupCandidates) {
+            coords = await geocodeToCoords(candidate);
+            if (coords) break;
+        }
         if (!coords) {
             setIsLoading(false);
             setLoadingMessage("");
@@ -440,12 +456,14 @@ export default function SearchSection() {
                     visible.map(({ store, km }) => (
                         <CardSearch
                             key={store.id}
+                            id={store.id}
                             nome={store.name}
                             adress={store.addressLine1 ?? ""}
                             imageUrl={store.imageUrl ?? ""}
                             km={km}
                             hours={store.hours}
                             weekendHours={store.hoursWeekend}
+                            onSelect={onSelectStore}
                         />
                     ))
                 )}
@@ -471,7 +489,9 @@ async function viaCepToQuery(cepDigits: string): Promise<string | null> {
     return location?.query ?? null;
 }
 
-async function viaCepToLocation(cepDigits: string): Promise<{ query: string; state: string } | null> {
+async function viaCepToLocation(
+    cepDigits: string
+): Promise<{ query: string; state: string; city: string } | null> {
     if (cepDigits.length !== 8) return null;
     try {
         const res = await fetch(`https://viacep.com.br/ws/${cepDigits}/json/`, { method: "GET" });
@@ -479,11 +499,12 @@ async function viaCepToLocation(cepDigits: string): Promise<{ query: string; sta
         const data = (await res.json()) as any;
         if (data?.erro) return null;
         const state = typeof data?.uf === "string" ? data.uf.trim().toUpperCase() : "";
+        const city = typeof data?.localidade === "string" ? data.localidade.trim() : "";
         const parts = [data?.logradouro, data?.bairro, data?.localidade, data?.uf]
             .map((v) => (typeof v === "string" ? v.trim() : ""))
             .filter(Boolean);
         if (parts.length === 0) return null;
-        return { query: `${parts.join(", ")}, Brasil`, state };
+        return { query: `${parts.join(", ")}, Brasil`, state, city };
     } catch {
         return null;
     }

@@ -4,6 +4,7 @@ import STORE_UNITS from "./_data/storesDb";
 import styled from "@emotion/styled";
 import SearchSection from "./_sections/search";
 import Card from "./_components/Card";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const LojasContent = styled.main`
     padding: 96px 0;
@@ -74,8 +75,48 @@ const LojasContent = styled.main`
 `
 
 export default function LojasPage() {
+    const [selectedStoreId, setSelectedStoreId] = useState<string | null>(null);
+    const [visibleCount, setVisibleCount] = useState(8);
 
-    const location = '';
+    const totalStores = STORE_UNITS.length;
+
+    useEffect(() => {
+        if (visibleCount >= totalStores) return;
+        const step = 6;
+        const interval = window.setInterval(() => {
+            setVisibleCount((prev) => (prev >= totalStores ? prev : Math.min(prev + step, totalStores)));
+        }, 140);
+        return () => window.clearInterval(interval);
+    }, [totalStores, visibleCount]);
+
+    const visibleStores = useMemo(
+        () => STORE_UNITS.slice(0, visibleCount),
+        [visibleCount]
+    );
+
+    const scrollToStore = useCallback((storeId: string, attempts = 0) => {
+        if (typeof window === "undefined") return;
+        const target = document.getElementById(`store-card-${storeId}`);
+        if (!target) {
+            if (attempts < 6) {
+                window.setTimeout(() => scrollToStore(storeId, attempts + 1), 80);
+            }
+            return;
+        }
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+        if ("focus" in target) {
+            (target as HTMLElement).focus({ preventScroll: true });
+        }
+    }, []);
+
+    const handleSelectStore = useCallback((storeId: string) => {
+        setSelectedStoreId(storeId);
+        const index = STORE_UNITS.findIndex((store) => store.id === storeId);
+        if (index >= 0 && index + 1 > visibleCount) {
+            setVisibleCount(index + 1);
+        }
+        scrollToStore(storeId);
+    }, [scrollToStore, visibleCount]);
 
 	return <LojasContent>
         <aside className="lojas__texts">
@@ -83,10 +124,10 @@ export default function LojasPage() {
                 Conheça todas as nossas unidades
             </Text>
         </aside>
-        <SearchSection />
+        <SearchSection onSelectStore={handleSelectStore} />
         <main className="lojas__cards">
             {
-                STORE_UNITS.map((store, index) => (
+                visibleStores.map((store, index) => (
                     <Card
                         key={`${index}-${store.id}`}
                         imageUrl={store.imageUrl}
@@ -98,6 +139,8 @@ export default function LojasPage() {
                         phone={store.phone}
                         hours={store.hours}
                         weekendHours={store.hoursWeekend}
+                        isSelected={selectedStoreId === store.id}
+                        enterDelayMs={index * 40}
                     />
                 ))
             }
