@@ -98,7 +98,7 @@ export default function PoliticaDeCookiesPage() {
 			<section className="policy-section" aria-labelledby="ck-contato">
 				<h2 id="ck-contato">6. Contato</h2>
 				<p>
-					Para dúvidas sobre cookies e privacidade, escreva para <strong>[INSERIR E-MAIL DO DPO]</strong>.
+					Para dúvidas sobre cookies e privacidade, escreva para <strong>privacidade@fastsistemasconstrutivos.com.br</strong>.
 				</p>
 			</section>
 		</PolicyArticle>

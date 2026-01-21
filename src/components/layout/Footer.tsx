@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { useEffect, useMemo, useState } from "react";
 import Text from "../ui/Text";
 import Input from "../forms/Input";
-import { ArticleIcon, BracketsSquareIcon, BrowserIcon, BuildingOfficeIcon, CheckerboardIcon, EarSlashIcon, EnvelopeIcon, EnvelopeOpenIcon, FacebookLogoIcon, GlobeHemisphereEastIcon, HouseLineIcon, InstagramLogoIcon, LinkedinLogoIcon, MapTrifoldIcon, OptionIcon, PaintRollerIcon, PhoneIcon, SpeakerSimpleHighIcon, StarFourIcon, TrophyIcon, WarehouseIcon, WhatsappLogoIcon, YoutubeLogoIcon } from "@phosphor-icons/react/dist/ssr";
+import { ArticleIcon, BracketsSquareIcon, BrowserIcon, BuildingOfficeIcon, CheckerboardIcon, EarSlashIcon, EnvelopeIcon, EnvelopeOpenIcon, FacebookLogoIcon, GlobeHemisphereEastIcon, HouseLineIcon, InstagramLogoIcon, LinkedinLogoIcon, MapTrifoldIcon, OptionIcon, PaintRollerIcon, PhoneIcon, SpeakerSimpleHighIcon, StarFourIcon, StorefrontIcon, TrophyIcon, WarehouseIcon, WhatsappLogoIcon, YoutubeLogoIcon } from "@phosphor-icons/react/dist/ssr";
 import Button from "../ui/Button";
 import Image from "next/image";
 import Icon from "../icons/Icon";
@@ -931,6 +931,19 @@ export default function Footer() {
                                 svg={EnvelopeOpenIcon}
                             />
                             E-mail
+                        </a>
+                    </li>
+                </ol>
+                <ol className="navegation__menu">
+                    <Text as="h6" className="navegation__menu-title">
+                        Explore
+                    </Text>
+                    <li className="navegation__menu-link">
+                        <a href="/lojas" target="_blank">
+                            <Icon 
+                                svg={StorefrontIcon}
+                            />
+                            Nossas Lojas
                         </a>
                     </li>
                 </ol>

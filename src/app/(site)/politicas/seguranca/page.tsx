@@ -128,7 +128,7 @@ export default function SegurancaPage() {
 				<h2 id="sec-contato">7. Contato</h2>
 				<p>
 					Se você identificar vulnerabilidade, comportamento suspeito ou tiver dúvidas sobre segurança e privacidade,
-					entre em contato: <strong>[INSERIR E-MAIL DE SEGURANÇA OU DPO]</strong>.
+					entre em contato: <strong>privacidade@fastsistemasconstrutivos.com.br</strong>.
 				</p>
 			</section>
 		</PolicyArticle>

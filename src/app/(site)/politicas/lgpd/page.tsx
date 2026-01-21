@@ -11,7 +11,7 @@ export default function LgpdPage() {
 			<p className="policy-lead">
 				Este é o canal para você exercer seus direitos como titular de dados pessoais, nos termos da LGPD.
 				Se preferir, você também pode solicitar diretamente pelo e-mail do Encarregado (DPO):
-				<strong> [INSERIR E-MAIL DO DPO]</strong>.
+				<strong> privacidade@fastsistemasconstrutivos.com.br</strong>.
 			</p>
 
 			<section className="policy-section" aria-labelledby="lgpd-direitos">

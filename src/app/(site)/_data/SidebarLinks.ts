@@ -1,6 +1,6 @@
 import React from "react";
 import type Icon from "@/components/icons/Icon";
-import { BracketsSquareIcon, BrowserIcon, BuildingOfficeIcon, CheckerboardIcon, EarSlashIcon, GridFourIcon, HouseLineIcon, MapTrifoldIcon, OptionIcon, ParallelogramIcon, ShoppingCartIcon, SpeakerSimpleHighIcon, StackSimpleIcon, WindowsLogoIcon } from "@phosphor-icons/react/dist/ssr";
+import { BookOpenIcon, BracketsSquareIcon, BrowserIcon, BuildingOfficeIcon, CheckerboardIcon, EarSlashIcon, GridFourIcon, HouseLineIcon, InfoIcon, MapTrifoldIcon, OptionIcon, ParallelogramIcon, ShoppingCartIcon, SpeakerSimpleHighIcon, StackSimpleIcon, StorefrontIcon, WindowsLogoIcon } from "@phosphor-icons/react/dist/ssr";
 
 export type SidebarLinkItem = {
 	label: string;
@@ -167,6 +167,22 @@ export const SIDEBAR_LINKS: SidebarLinkCategory[] = [
                 filterKey: "loja-online", 
                 colorKey: "#050505",
                 icon: ShoppingCartIcon,
+            },
+			{ 
+                label: "Unidades Fast",
+                description: "Encontre nossas lojas físicas mais perto de você!", 
+                href: "/lojas", 
+                filterKey: "unidades", 
+                colorKey: "#050505",
+                icon: StorefrontIcon,
+            },
+			{ 
+                label: "Sobre a Fast",
+                description: "Conheça mais sobre a Fast Sistemas Construtivos!", 
+                href: "/sobre", 
+                filterKey: "sobre", 
+                colorKey: "#050505",
+                icon: BookOpenIcon,
             },
 		],
 	},

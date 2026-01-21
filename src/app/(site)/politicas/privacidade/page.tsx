@@ -37,7 +37,7 @@ export default function PoliticaPrivacidadePage() {
 					<strong>Rua Equador, 43, Bloco 003, Sala 0720, Santo Cristo, Rio de Janeiro/RJ, CEP 20220-410</strong>.
 				</p>
 				<p>
-					Canal de privacidade (DPO/Encarregado): <strong>[INSERIR E-MAIL DO DPO]</strong>.
+					Canal de privacidade (DPO/Encarregado): <strong>privacidade@fastsistemasconstrutivos.com.br</strong>.
 				</p>
 			</section>
 
@@ -179,7 +179,7 @@ export default function PoliticaPrivacidadePage() {
 				</p>
 				<p>
 					Para solicitar, acesse a <a href="/politicas/lgpd">Central de Privacidade</a> ou escreva para
-					<strong> [INSERIR E-MAIL DO DPO]</strong>.
+					<strong> privacidade@fastsistemasconstrutivos.com.br</strong>.
 				</p>
 			</section>
 
