@@ -4,7 +4,8 @@ import STORE_UNITS from "./_data/storesDb";
 import styled from "@emotion/styled";
 import SearchSection from "./_sections/search";
 import Card from "./_components/Card";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const LojasContent = styled.main`
     padding: 96px 0;
@@ -77,6 +78,8 @@ const LojasContent = styled.main`
 export default function LojasPage() {
     const [selectedStoreId, setSelectedStoreId] = useState<string | null>(null);
     const [visibleCount, setVisibleCount] = useState(8);
+    const searchParams = useSearchParams();
+    const autoSelectedRef = useRef<string | null>(null);
 
     const totalStores = STORE_UNITS.length;
 
@@ -117,6 +120,19 @@ export default function LojasPage() {
         }
         scrollToStore(storeId);
     }, [scrollToStore, visibleCount]);
+
+    useEffect(() => {
+        const fromQuery = searchParams.get("store");
+        const fromHash = typeof window !== "undefined"
+            ? (window.location.hash?.match(/^#store-card-(.+)$/)?.[1] ?? null)
+            : null;
+
+        const storeId = fromQuery || fromHash;
+        if (!storeId) return;
+        if (autoSelectedRef.current === storeId) return;
+        autoSelectedRef.current = storeId;
+        handleSelectStore(storeId);
+    }, [handleSelectStore, searchParams]);
 
 	return <LojasContent>
         <aside className="lojas__texts">

@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 
 const EcosystemContainer = styled(motion.section)`
     width: 100%;
-    padding: 96px 0 96px 0;
+    padding: 96px 0 0px 0;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -74,7 +74,7 @@ const EcosystemContainer = styled(motion.section)`
         left: 50%;
         top: 45%;
         transform: translate(-50%, -50%);
-        gap: 24px;
+        gap: 8px;
 
         @media (max-width: 768px) {
             gap: 2px;
@@ -88,14 +88,14 @@ const EcosystemContainer = styled(motion.section)`
         }
 
         & .ecosystem__container-item {
-            width: 184px;
+            width: 100%;
             height: 184px;
             display: flex;
             justify-content: center;
             align-items: center;
             border: 1px solid #f1f1f1;
             background-color: var(--color-bg);
-            border-radius: 50%;
+            border-radius: 6px;
             position: relative;
             will-change: transform, opacity, filter;
             overflow: hidden;
@@ -126,8 +126,8 @@ const EcosystemContainer = styled(motion.section)`
             }
 
             & > img {
-                width: 112px;
-                height: 112px;
+                width: 132px;
+                height: 132px;
                 object-fit: contain;
 
                 @media (max-width: 768px) {
@@ -141,7 +141,7 @@ const EcosystemContainer = styled(motion.section)`
             }
 
             &:nth-of-type(2) {
-                top: 120px;
+                top: 0px;
 
                 @media (max-width: 768px) {
                     top: 0px;
@@ -149,7 +149,7 @@ const EcosystemContainer = styled(motion.section)`
             }
 
             &:nth-of-type(3) {
-                top: 90px;
+                top: 0px;
                 
                 @media (max-width: 768px) {
                     top: 0px;
@@ -157,7 +157,7 @@ const EcosystemContainer = styled(motion.section)`
             }
 
             &:nth-of-type(4) {
-                top: 90px;
+                top: 0px;
 
                 @media (max-width: 768px) {
                     top: 0px;  
@@ -165,7 +165,7 @@ const EcosystemContainer = styled(motion.section)`
             }
 
             &:nth-of-type(5) {
-                top: 120px;
+                top: 0px;
 
                 @media (max-width: 768px) {
                     top: 0px;

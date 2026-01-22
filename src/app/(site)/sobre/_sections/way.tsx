@@ -168,12 +168,12 @@ const WayContainer = styled.section`
         }
 
         &-year.is-left {
-            right: calc(50% + 0px);
+            right: calc(50% + 2px);
             rotate: 90deg;
         }
 
         &-year.is-right {
-            left: calc(50% + 0px);
+            left: calc(50% + 2px);
             rotate: 270deg;
         }
 
