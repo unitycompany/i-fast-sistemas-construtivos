@@ -5,7 +5,6 @@ import Range from "../_components/Range";
 import MvvSection from "./_sections/mvv";
 import EcosystemSection from "./_sections/ecosytem";
 import WaySection from "./_sections/way";
-import ProjectsSection from "./_sections/projects";
 
 const SobreContainer = styled.div`
     width: 100%;
