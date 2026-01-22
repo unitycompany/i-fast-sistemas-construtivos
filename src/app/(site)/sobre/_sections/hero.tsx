@@ -67,7 +67,7 @@ const HeroContainer = styled.section`
 
         @media (max-width: 768px) {
             width: 100%;    
-            gap: 24px;
+            gap: 18px;
         }
 
         &-image {
@@ -120,8 +120,8 @@ const HeroContainer = styled.section`
             }
 
             &-button {
-                --btn-color: var(--color-bg);
-                --btn-on: var(--color-dark);
+                --btn-color: var(--color-bg)!important;
+                --btn-on: var(--color-dark)!important;
             }
 
             &-persons {

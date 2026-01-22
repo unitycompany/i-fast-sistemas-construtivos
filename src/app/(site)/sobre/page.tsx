@@ -8,7 +8,6 @@ import WaySection from "./_sections/way";
 import ProjectsSection from "./_sections/projects";
 
 const SobreContainer = styled.div`
-    border: 1px solid red;
     width: 100%;
     display: flex;
     align-items: center;
@@ -20,9 +19,8 @@ export default function SobrePage() {
   return <SobreContainer>
     <HeroSection/>
     <Range />
-    <MvvSection/>
     <EcosystemSection />
+    <MvvSection/>
     <WaySection />
-    <ProjectsSection />
   </SobreContainer>
 }
