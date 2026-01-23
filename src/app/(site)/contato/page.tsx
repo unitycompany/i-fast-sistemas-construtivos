@@ -744,7 +744,7 @@ const ContactContainer = styled.div`
 
 export default function ContactPage({
     email = "atendimento@fastsistemasconstrutivos.com.br",
-    phone = "+55 (24) 99288-2282",
+    phone = "+55 (21) 99288-2282",
     adress = "Avenida Roberto Silveira, 251 - Centro, Miguel Pereira - RJ, CEP 26900-000"
 }) {
 

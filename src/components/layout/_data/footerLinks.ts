@@ -102,11 +102,11 @@ export const FOOTER_MENUS: FooterMenuSection[] = [
         items: [
             {
                 label: "WhatsApp",
-                href: "https://wa.me/5524981911292",
+                href: "https://wa.me/5521992882282",
                 icon: WhatsappLogoIcon,
                 targetBlank: true,
             },
-            { label: "+55 (24) 98191-1292", href: "tel:+5524981911292", icon: PhoneIcon },
+            { label: "+55 (21) 99288-2282", href: "tel:+5521992882282", icon: PhoneIcon },
             {
                 label: "E-mail",
                 href: "mailto:atendimento@fastsistemasconstrutivos.com.br",

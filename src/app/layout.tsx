@@ -95,7 +95,7 @@ function JsonLd() {
     jsonLdOrganization({
       contactPoint: {
         email: "atendimento@fastsistemasconstrutivos.com.br",
-        telephone: "+55-24-98191-1292",
+        telephone: "+55-21-99288-2282",
         contactType: "customer support",
         areaServed: "BR",
         availableLanguage: "pt-BR",

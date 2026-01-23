@@ -275,7 +275,7 @@ const Container = styled.dialog`
 type ContactSubmitState = "form" | "loading" | "success" | "error";
 
 function formatBrPhoneWithFixedCountry(input: string) {
-    // Keeps +55 fixed and formats as: +55 (24) 98765-4321
+    // Keeps +55 fixed and formats as: +55 (21) 98765-4321
     let digits = input.replace(/\D/g, "");
     if (digits.startsWith("55")) digits = digits.slice(2);
     digits = digits.slice(0, 11);
@@ -458,7 +458,7 @@ export default function ContactConversionFormPopup() {
                                     type="tel"
                                     id="tel"
                                     name="tel"
-                                    placeholder="(24) 98765-4321"
+                                    placeholder="(21) 98765-4321"
                                     icon={PhoneCallIcon}
                                     inputMode="numeric"
                                     autoComplete="tel"
