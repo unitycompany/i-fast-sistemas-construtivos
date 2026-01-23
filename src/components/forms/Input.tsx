@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import Icon from "../icons/Icon";
+import Icon, { type IconSvg } from "../icons/Icon";
 import React from "react";
 
 const Label = styled.label`
@@ -66,7 +66,7 @@ type NativeInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"
 
 interface InputProps extends NativeInputProps {
     type: string;
-    icon?: React.ComponentProps<typeof Icon>["svg"];
+    icon?: IconSvg;
     className?: string;
     onIconClick?: () => void;
     iconAriaLabel?: string;

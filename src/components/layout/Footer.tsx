@@ -4,13 +4,15 @@ import styled from "@emotion/styled";
 import { useEffect, useMemo, useState } from "react";
 import Text from "../ui/Text";
 import Input from "../forms/Input";
-import { ArticleIcon, BracketsSquareIcon, BrowserIcon, BuildingOfficeIcon, CheckerboardIcon, EarSlashIcon, EnvelopeIcon, EnvelopeOpenIcon, FacebookLogoIcon, GlobeHemisphereEastIcon, HouseLineIcon, InstagramLogoIcon, LinkedinLogoIcon, MapTrifoldIcon, OptionIcon, PaintRollerIcon, PhoneIcon, SpeakerSimpleHighIcon, StarFourIcon, StorefrontIcon, TrophyIcon, WarehouseIcon, WhatsappLogoIcon, YoutubeLogoIcon, BookOpenIcon } from "@phosphor-icons/react/dist/ssr";
+import { EnvelopeIcon, StarFourIcon, TrophyIcon } from "@phosphor-icons/react/dist/ssr";
 import Button from "../ui/Button";
 import Image from "next/image";
 import Icon from "../icons/Icon";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { CheckIcon, XCircleIcon } from "@phosphor-icons/react/dist/ssr";
+
+import { FOOTER_MENUS, FOOTER_SOCIAL_LINKS } from "./_data/footerLinks";
 
 import Logo from "../../../public/logo-fast-sistemas-construtivos.svg";
 import Franshising from "../../../public/franchising/fachada-de-uma-franquia-da-fast-sistemas-construtivos.png";
@@ -748,213 +750,40 @@ export default function Footer() {
                     Inovação construtiva, confiança garantida.
                 </Text>
                 <ol className="navegation__socials">
-                    <li className="navegation__social-item">
-                        <a href="" target="_blank">
-                            <FacebookLogoIcon />
-                        </a>
-                    </li>
-                    <li className="navegation__social-item">
-                        <a href="" target="_blank">
-                            <InstagramLogoIcon />
-                        </a>
-                    </li>
-                    <li className="navegation__social-item">
-                        <a href="" target="_blank">
-                            <YoutubeLogoIcon />
-                        </a>
-                    </li>
-                    <li className="navegation__social-item">
-                        <a href="" target="_blank">
-                            <LinkedinLogoIcon />
-                        </a>
-                    </li>
+                    {FOOTER_SOCIAL_LINKS.map((social) => (
+                        <li className="navegation__social-item" key={social.label}>
+                            <a
+                                href={social.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={social.label}
+                            >
+                                <Icon svg={social.icon} />
+                            </a>
+                        </li>
+                    ))}
                 </ol>
             </div>
             <main className="navegation__routes">
-                <ol className="navegation__menu">
-                    <Text as="h6" className="navegation__menu-title">
-                        Steel Frame
-                    </Text>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={HouseLineIcon}
-                            />
-                            Residencial
-                        </a>
-                    </li>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={BuildingOfficeIcon}
-                            />
-                            Comercial
-                        </a>
-                    </li>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={OptionIcon}
-                            />
-                            Telhados e Lajes
-                        </a>
-                    </li>
-                </ol>
-                <ol className="navegation__menu">
-                    <Text as="h6" className="navegation__menu-title">
-                        Drywall
-                    </Text>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={BracketsSquareIcon}
-                            />
-                            Forros
-                        </a>
-                    </li>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={BrowserIcon}
-                            />
-                            Paredes
-                        </a>
-                    </li>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={CheckerboardIcon}
-                            />
-                            Complementos
-                        </a>
-                    </li>
-                </ol>
-                <ol className="navegation__menu">
-                    <Text as="h6" className="navegation__menu-title">
-                        Acústica
-                    </Text>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={SpeakerSimpleHighIcon}
-                            />
-                            Forros acústicos
-                        </a>
-                    </li>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={EarSlashIcon}
-                            />
-                            Tratamento de acústica
-                        </a>
-                    </li>
-                </ol>
-                <ol className="navegation__menu">
-                    <Text as="h6" className="navegation__menu-title">
-                        Sistemas
-                    </Text>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={PaintRollerIcon}
-                            />
-                            Obras
-                        </a>
-                    </li>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={MapTrifoldIcon}
-                            />
-                            Franquia
-                        </a>
-                    </li>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={GlobeHemisphereEastIcon}
-                            />
-                            Lojas
-                        </a>
-                    </li>
-                </ol>
-                <ol className="navegation__menu">
-                    <Text as="h6" className="navegation__menu-title">
-                        Casas
-                    </Text>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={WarehouseIcon}
-                            />
-                            Casas Pré Fabricadas
-                        </a>
-                    </li>
-                </ol>
-                <ol className="navegation__menu">
-                    <Text as="h6" className="navegation__menu-title">
-                        Aprendizado
-                    </Text>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={ArticleIcon}
-                            />
-                            Blog
-                        </a>
-                    </li>
-                </ol>
-                <ol className="navegation__menu">
-                    <Text as="h6" className="navegation__menu-title">
-                        Contato
-                    </Text>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={WhatsappLogoIcon}
-                            />
-                            WhatsApp
-                        </a>
-                    </li>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={PhoneIcon}
-                            />
-                            +55 (24) 98191-1292
-                        </a>
-                    </li>
-                    <li className="navegation__menu-link">
-                        <a href="" target="_blank">
-                            <Icon 
-                                svg={EnvelopeOpenIcon}
-                            />
-                            E-mail
-                        </a>
-                    </li>
-                </ol>
-                <ol className="navegation__menu">
-                    <Text as="h6" className="navegation__menu-title">
-                        Explore
-                    </Text>
-                    <li className="navegation__menu-link">
-                        <a href="/lojas" target="_blank">
-                            <Icon 
-                                svg={StorefrontIcon}
-                            />
-                            Nossas Lojas
-                        </a>
-                    </li>
-                    <li className="navegation__menu-link">
-                        <a href="/sobre" target="_blank">
-                            <Icon 
-                                svg={BookOpenIcon}
-                            />
-                            Sobre a Fast
-                        </a>
-                    </li>
-                </ol>
+                {FOOTER_MENUS.map((section) => (
+                    <ol className="navegation__menu" key={section.title}>
+                        <Text as="h6" className="navegation__menu-title">
+                            {section.title}
+                        </Text>
+                        {section.items.map((item) => (
+                            <li className="navegation__menu-link" key={`${section.title}-${item.label}`}> 
+                                <a
+                                    href={item.href}
+                                    target={item.targetBlank ? "_blank" : undefined}
+                                    rel={item.targetBlank ? "noopener noreferrer" : undefined}
+                                >
+                                    {item.icon ? <Icon svg={item.icon} /> : null}
+                                    {item.label}
+                                </a>
+                            </li>
+                        ))}
+                    </ol>
+                ))}
             </main>
         </Navegation>
         <div className="line"></div>

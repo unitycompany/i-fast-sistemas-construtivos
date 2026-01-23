@@ -3,6 +3,7 @@ import { DM_Sans, Manrope, Urbanist } from "next/font/google";
 import type { ReactNode } from "react";
 import "./globals.css";
 import AppShell from "@/components/layout/AppShell";
+import { absoluteUrl, jsonLdOrganization, jsonLdWebSite } from "@/app/seo";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -91,19 +92,16 @@ export const metadata: Metadata = {
 
 function JsonLd() {
   const jsonLd = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      name: siteName,
-      url: siteUrl,
-      logo: `${siteUrl}${logoPath}`,
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      name: siteName,
-      url: siteUrl,
-    },
+    jsonLdOrganization({
+      contactPoint: {
+        email: "atendimento@fastsistemasconstrutivos.com.br",
+        telephone: "+55-24-98191-1292",
+        contactType: "customer support",
+        areaServed: "BR",
+        availableLanguage: "pt-BR",
+      },
+    }),
+    jsonLdWebSite(),
   ];
 
   return (
@@ -126,6 +124,7 @@ export default function RootLayout({
         <JsonLd />
         <link rel="icon" href={logoPath} type="image/svg+xml" />
         <link rel="apple-touch-icon" href={logoPath} />
+        <link rel="alternate" type="text/plain" href={absoluteUrl("/llms.txt")} title="LLMs.txt" />
       </head>
       <body>
         <AppShell>{children}</AppShell>

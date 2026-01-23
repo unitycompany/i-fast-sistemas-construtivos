@@ -1,6 +1,6 @@
 import React from "react";
-import type Icon from "@/components/icons/Icon";
-import { BookOpenIcon, BracketsSquareIcon, BrowserIcon, BuildingOfficeIcon, CheckerboardIcon, EarSlashIcon, GridFourIcon, HouseLineIcon, InfoIcon, MapTrifoldIcon, OptionIcon, ParallelogramIcon, ShoppingCartIcon, SpeakerSimpleHighIcon, StackSimpleIcon, StorefrontIcon, WindowsLogoIcon } from "@phosphor-icons/react/dist/ssr";
+import type { IconSvg } from "@/components/icons/Icon";
+import { BookOpenIcon, BracketsSquareIcon, BrowserIcon, BuildingOfficeIcon, CheckerboardIcon, EarSlashIcon, GridFourIcon, HouseLineIcon, InfoIcon, MapTrifoldIcon, OptionIcon, ParallelogramIcon, PhoneCallIcon, ShoppingCartIcon, SpeakerSimpleHighIcon, StackSimpleIcon, StorefrontIcon, WindowsLogoIcon } from "@phosphor-icons/react/dist/ssr";
 
 export type SidebarLinkItem = {
 	label: string;
@@ -10,7 +10,7 @@ export type SidebarLinkItem = {
 	/** chave simples pra você filtrar/selecionar por categoria */
 	filterKey: string;
     description?: string;
-    icon?: React.ComponentProps<typeof Icon>["svg"];
+    icon?: IconSvg;
 };
 
 export type SidebarLinkCategory = {
@@ -183,6 +183,14 @@ export const SIDEBAR_LINKS: SidebarLinkCategory[] = [
                 filterKey: "sobre", 
                 colorKey: "#050505",
                 icon: BookOpenIcon,
+            },
+			{ 
+                label: "Contato",
+                description: "Entre em contato com a Fast Sistemas Construtivos!", 
+                href: "/contato", 
+                filterKey: "contato", 
+                colorKey: "#050505",
+                icon: PhoneCallIcon,
             },
 		],
 	},

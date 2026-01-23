@@ -1,15 +1,16 @@
-import React from "react"
+import React from "react";
 
-interface IconProps extends React.ComponentProps<"svg"> {
-    svg: React.FC<React.ComponentProps<"svg">>;
+export type IconSvg = React.ElementType;
+
+export type IconProps<T extends IconSvg = IconSvg> = {
+    svg: T;
     color?: string;
-}
+} & Omit<React.ComponentPropsWithoutRef<T>, "color">;
 
-export default function Icon({
+export default function Icon<T extends IconSvg>({
     svg: SvgComponent,
-    className,
     color,
     ...props
-}: IconProps) {
-    return <SvgComponent color={color} {...props} className={className} /> 
+}: IconProps<T>) {
+    return <SvgComponent {...(props as any)} color={color} />;
 }

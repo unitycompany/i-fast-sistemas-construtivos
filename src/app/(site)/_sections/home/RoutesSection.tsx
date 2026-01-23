@@ -226,7 +226,7 @@ export default function RoutesSection() {
         cards.map((card, index) => (
           <SwiperSlide key={index}>
             <div className="card__logo">
-              <img src={card.image} alt={card.alt} />
+              <img src={card.image} alt={card.alt} loading="lazy" decoding="async" />
             </div>
             <aside className="card__container">
               <Text as="h6" className="card__text">

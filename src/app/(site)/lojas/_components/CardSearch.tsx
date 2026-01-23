@@ -195,7 +195,7 @@ export default function CardSearch({
         >
         <aside className="card__image">
             <div className={`card__image-dot ${open ? "is-open" : "is-closed"}`}></div>
-            <img src={imageUrl} alt={nome} />
+            <img src={imageUrl} alt={nome} loading="lazy" decoding="async" />
         </aside>
         <main className="card__texts">
             <Text as="h2">{nome}</Text>

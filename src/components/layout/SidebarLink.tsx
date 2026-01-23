@@ -1,6 +1,6 @@
 "use client";
 import styled from "@emotion/styled";
-import Icon from "../icons/Icon";
+import Icon, { type IconSvg } from "../icons/Icon";
 import React from "react";
 import Text from "../ui/Text";
 
@@ -67,7 +67,7 @@ const SidebarLinkContainer = styled("button", {
 `
 
 interface SidebarLinkProps {
-    icon?: React.ComponentProps<typeof Icon>["svg"];
+    icon?: IconSvg;
     title: string;
     description: string;
     colorKey?: string;
@@ -83,7 +83,7 @@ export default function SidebarLink({
 }: SidebarLinkProps) {
     return <SidebarLinkContainer onClick={onClick} colorKey={colorKey}>
         {
-            IconComponent ? <Icon svg={IconComponent} color={colorKey} /> : null
+            IconComponent ? <Icon svg={IconComponent} color={colorKey} weight="light" /> : null
         }
         <aside className="sidebar__content">
             <Text as="h6" className="sidebar__title">
