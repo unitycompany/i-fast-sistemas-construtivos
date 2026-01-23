@@ -10,7 +10,7 @@ export default function manifest(): MetadataRoute.Manifest {
     display: "standalone",
     icons: [
       {
-        src: "/fastsistemasconstrutivos.svg",
+        src: "/icon-fast-sistemas-construtivos.svg",
         sizes: "any",
         type: "image/svg+xml",
       },
