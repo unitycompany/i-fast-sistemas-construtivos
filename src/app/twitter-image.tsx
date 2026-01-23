@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { SITE_NAME, DEFAULT_TITLE } from "./seo";
 
+export const runtime = "nodejs";
 export const dynamic = "force-static";
 
 export const size = {
