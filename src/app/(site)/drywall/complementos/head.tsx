@@ -6,6 +6,7 @@ export default function Head() {
       pathname="/drywall/complementos"
       title="Complementos para Drywall"
       description="Complementos para drywall: itens e soluções para elevar desempenho, durabilidade e qualidade de forros e paredes."
+      dateModified="2026-01-23"
     />
   );
 }

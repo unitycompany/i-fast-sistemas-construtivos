@@ -6,6 +6,7 @@ export default function Head() {
       pathname="/acustica"
       title="Acústica"
       description="Soluções de acústica: forros acústicos e tratamento acústico para conforto e desempenho em ambientes residenciais e comerciais."
+      dateModified="2026-01-23"
     />
   );
 }

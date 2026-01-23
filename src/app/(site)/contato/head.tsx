@@ -6,6 +6,7 @@ export default function Head() {
       pathname="/contato"
       title="Contato"
       description="Fale com a Fast Sistemas Construtivos. Tire dúvidas, solicite informações e encontre a unidade mais próxima." 
+      dateModified="2026-01-23"
     />
   );
 }

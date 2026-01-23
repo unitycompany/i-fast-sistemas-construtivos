@@ -6,6 +6,7 @@ export default function Head() {
       pathname="/steel-frame/residencial"
       title="Steel Frame Residencial"
       description="Steel Frame residencial: sistemas construtivos a seco para casas e projetos residenciais, com foco em desempenho, agilidade e qualidade."
+      dateModified="2026-01-23"
     />
   );
 }

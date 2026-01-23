@@ -6,6 +6,7 @@ export default function Head() {
       pathname="/steel-frame/comercial"
       title="Steel Frame Comercial"
       description="Steel Frame comercial: soluções em construção a seco para obras comerciais, com produtividade, precisão e controle de obra."
+      dateModified="2026-01-23"
     />
   );
 }

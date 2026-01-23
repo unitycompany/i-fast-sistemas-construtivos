@@ -4,7 +4,7 @@ export const DEFAULT_TITLE = "Fast Sistemas Construtivos | Inovação construtiv
 export const DEFAULT_DESCRIPTION =
   "Mais de 25 anos de experiência em construção. Especialistas em Drywall, Acústica e Steel Frame. Fast Sistemas Construtivos é a maior rede de lojas do Brasil.";
 
-export const SITE_LOGO_PATH = "/fastsistemasconstrutivos.svg";
+export const SITE_LOGO_PATH = "/logo-fast-sistemas-construtivos.svg";
 
 export const ORG_ID = `${SITE_URL}#organization`;
 export const WEBSITE_ID = `${SITE_URL}#website`;

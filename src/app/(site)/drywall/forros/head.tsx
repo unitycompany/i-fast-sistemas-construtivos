@@ -6,6 +6,7 @@ export default function Head() {
       pathname="/drywall/forros"
       title="Forros em Drywall"
       description="Forros em drywall: soluções de acabamento, desempenho e praticidade para ambientes residenciais e comerciais."
+      dateModified="2026-01-23"
     />
   );
 }

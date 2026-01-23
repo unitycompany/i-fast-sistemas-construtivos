@@ -6,6 +6,7 @@ export default function Head() {
       pathname="/acustica/tratamento-de-acustica"
       title="Tratamento de Acústica"
       description="Tratamento de acústica: isolamento e soluções para controle sonoro, melhorando a experiência e o desempenho dos ambientes."
+      dateModified="2026-01-23"
     />
   );
 }

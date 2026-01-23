@@ -6,6 +6,7 @@ export default function Head() {
       pathname="/acustica/forros-acusticos"
       title="Forros Acústicos"
       description="Forros acústicos: soluções para absorção sonora, conforto acústico e qualidade de ambientes com alto padrão de acabamento."
+      dateModified="2026-01-23"
     />
   );
 }
