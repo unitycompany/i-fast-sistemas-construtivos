@@ -155,8 +155,8 @@ export const SIDEBAR_LINKS: SidebarLinkCategory[] = [
 			{ 
                 label: "Virar franqueado", 
                 description: "A maior empresa de construção a seco",
-                href: "/franquia/virar-franqueado", 
-                filterKey: "virar-franqueado", 
+                href: "/virar-franqueado-fast", 
+                filterKey: "virar-franqueado-fast", 
                 colorKey: "#050505",
                 icon: MapTrifoldIcon,
             },

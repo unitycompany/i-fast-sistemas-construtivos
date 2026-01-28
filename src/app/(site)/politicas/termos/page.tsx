@@ -96,7 +96,7 @@ export default function TermosDeUsoPage() {
 			<section className="policy-section" aria-labelledby="tu-contato">
 				<h2 id="tu-contato">8. Contato</h2>
 				<p>
-					Em caso de dúvidas sobre estes Termos, entre em contato pelo e-mail <strong>[INSERIR E-MAIL]</strong>.
+					Em caso de dúvidas sobre estes Termos, entre em contato pelo e-mail <strong>privacidade@fastsistemasconstrutivos.com.br</strong>.
 				</p>
 			</section>
 		</PolicyArticle>
